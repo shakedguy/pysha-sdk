@@ -60,10 +60,23 @@ try:
 
 except ImportError:
     from ._py import (
-        ChangeKeysCase,
-        dict_or_pydantic_model_to_dict,
-        find_subclasses,
         is_iterable_except_str_like,
-        model_dump,
         recursive_sort_keys,
     )
+
+# Always import non-optimized functions from Python implementation
+from ._py import (
+    ChangeKeysCase,
+    dict_or_pydantic_model_to_dict,
+    find_subclasses,
+    model_dump,
+)
+
+__all__ = [
+    "ChangeKeysCase",
+    "dict_or_pydantic_model_to_dict",
+    "find_subclasses",
+    "is_iterable_except_str_like",
+    "model_dump",
+    "recursive_sort_keys",
+]
