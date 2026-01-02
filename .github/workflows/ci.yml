@@ -131,7 +131,6 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published'
     environment:
       name: pypi
-      url: https://pypi.org/p/pysha-sdk
     permissions:
       id-token: write  # Required for trusted publishing
     steps:
