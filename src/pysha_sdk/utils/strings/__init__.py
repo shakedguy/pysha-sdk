@@ -561,12 +561,12 @@ def flatten_url_params(
 
     """
     if isinstance(params, dict):
-        params = list[tuple[T, T2 | Iterable[T2]]](params.items())
+        params = list(params.items())
 
     flattened: list[Any] = []
     for param, value in params:
         if isinstance(value, (list, tuple)):
-            flattened += list[T, T2](zip[tuple[T, T2]]([param] * len(value), value, strict=True))
+            flattened += list(zip([param] * len(value), value))
         else:
             flattened.append((param, value))
 
