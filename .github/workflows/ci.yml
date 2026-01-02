@@ -150,10 +150,26 @@ jobs:
       - name: Install build dependencies
         run: |
           uv sync --dev
+          uv pip install build auditwheel
 
       - name: Build package
         run: |
-          uv build
+          # Build both wheel and sdist
+          python -m build --wheel --sdist
+
+      - name: Repair wheel with auditwheel
+        run: |
+          # Find the wheel file and repair it to ensure proper manylinux tags
+          WHEEL_FILE=$(ls dist/*linux_x86_64.whl 2>/dev/null | head -1)
+          if [ -n "$WHEEL_FILE" ]; then
+            echo "Repairing wheel: $WHEEL_FILE"
+            # Repair wheel to create proper manylinux wheel
+            auditwheel repair "$WHEEL_FILE" -w dist/
+            # Remove original wheel
+            rm "$WHEEL_FILE"
+          else
+            echo "No linux_x86_64 wheel found, skipping repair"
+          fi
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
