@@ -12,10 +12,11 @@ pyx_files = list(source_dir.rglob("*.pyx"))
 # Create Extension objects for each .pyx file
 extensions = []
 for pyx_file in pyx_files:
-    # Convert path like src/pysha_sdk/utils/strings/_strings_cython.pyx
-    # to pysha_sdk.utils.strings._strings_cython
+    # Convert path like src/pysha_sdk/utils/strings/_native.pyx
+    # to pysha_sdk.utils.strings._native
+    # Use parts to handle both Windows and Unix paths correctly
     rel_path = pyx_file.relative_to(source_dir)
-    module_name = str(rel_path.with_suffix("")).replace("/", ".")
+    module_name = ".".join(rel_path.with_suffix("").parts)
     extensions.append(Extension(module_name, [str(pyx_file)]))
 
 # Cythonize the extensions
