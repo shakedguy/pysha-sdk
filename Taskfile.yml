@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  lint:
+    cmds:
+      - uv run ruff check --fix --select I
+
+  test:
+    cmds:
+      - uv run pytest ./tests --cov=pysha_sdk --cov-report=html --cov-report=term-missing
+
+  build:
+    cmds:
+      - uv run build
+
+  publish:
+    cmds:
+      - task: lint
+      - git add .
+      - git commit -m "{{.CLI_ARGS}}"
+      - git push origin $(git branch --show-current)
