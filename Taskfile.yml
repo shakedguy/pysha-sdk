@@ -17,5 +17,5 @@ tasks:
     cmds:
       - task: lint
       - git add .
-      - git commit -m "{{.CLI_ARGS}}"
+      - git commit -m {{.CLI_ARGS}}
       - git push origin $(git branch --show-current)

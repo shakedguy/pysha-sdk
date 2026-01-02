@@ -566,7 +566,7 @@ def flatten_url_params(
     flattened: list[Any] = []
     for param, value in params:
         if isinstance(value, (list, tuple)):
-            flattened += list(zip([param] * len(value), value))
+            flattened += list(zip([param] * len(value), value, strict=True))
         else:
             flattened.append((param, value))
 
