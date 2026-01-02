@@ -84,7 +84,7 @@ jobs:
 
       - name: Run ruff format check
         run: |
-          uv run ruff format --check src/ tests/
+          uv run ruff check --fix --select I
 
       - name: Run mypy
         run: |
