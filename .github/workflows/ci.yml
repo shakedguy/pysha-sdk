@@ -41,6 +41,7 @@ jobs:
           uv build
 
       - name: Install built package
+        shell: bash
         run: |
           uv pip install dist/pysha_sdk-*.whl
 
